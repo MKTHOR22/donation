@@ -13,7 +13,7 @@ cred = credentials.Certificate("food-donation-bda4d-946ce54b194a.json")
 def app(global_state):
 # Usernm = []
     st.title('Sign into :violet[ShareJoy] and be the spark for good vibes!')
-    st.image('images\Brown and Yellow Charity Vector Hand Logo.png',width=300,use_column_width=300,)
+    #st.image('images\Brown and Yellow Charity Vector Hand Logo.png',width=300,use_column_width=300,)
 
     if 'username' not in st.session_state:
         st.session_state.username = ''
