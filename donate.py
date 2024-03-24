@@ -99,8 +99,8 @@ def app(global_state):
                 }],
             # payment_url='https://buy.stripe.com/test_7sIcQ35ou6pv2d2288',  # Replace 'your_payment_link_here' with your actual payment link
             mode='payment',
-            success_url="http://localhost:8501",
-            cancel_url="http://localhost:8501",
+            success_url="https://sharejoy.onrender.com/",
+            cancel_url="https://sharejoy.onrender.com/",
             payment_intent_data={
                 'description': org, 
             },
