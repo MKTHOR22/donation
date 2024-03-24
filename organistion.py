@@ -1,11 +1,11 @@
 import streamlit as st
-import firebase_admin  # Import Firebase Admin SDK
-from firebase_admin import credentials, firestore, storage  # Import Firestore
+import firebase_admin
+from firebase_admin import credentials, firestore, storage
 
-# Initialize Firebase app
-# cred = credentials.Certificate("food-donation-bda4d-946ce54b194a.json")  
+# Replace with your Firebase project credentials (from Firebase console)
+# cred = credentials.Certificate("food-donation-bda4d-946ce54b194a.json")
 # firebase_admin.initialize_app(cred)
-db = firestore.client()
+db = firestore.client()  # Initialize Firestore client
 
 def get_docs(email):
     try:
@@ -46,35 +46,33 @@ def get_docs(email):
                 # print(f"Folder: {subfolder}, Public URL: {public_url}")
     except Exception as e:
         print(e)
-# get_docs('abc')    
-
 def app(global_state):
 
-    st.title('::orange[ORGANISATION REGISTRATION]')
+    st.title(':violet[ORGANISATION] :gray[REGISTRATION]')
     st.subheader('Be part of !:violet[ Share Joy] Register your local organization and make a positive impact with us')
     st.divider()
 
-    # Create a form to collect user input
     with st.form(key="organization_form"):
         st.subheader('BASIC :violet[ INFORMATION]:writing_hand:')
-        org_name = st.text_input('Name of the organization')
-        reg_number = st.text_input('Registration number')
-        reg_doc = st.file_uploader('Registration Document', type=["pdf", "docx"])  # Optional file upload
+        org_name = st.text_input('Name of the organization', key='org_name')
+        reg_number = st.text_input('Registration number', key='reg_number')
+        reg_doc = st.file_uploader('Registration Document', type=["pdf", "docx"])
         st.text('CONTACT INFORMATION')
-        mobile_number = st.text_input('Mobile Number')
-        email = st.text_input('E-Mail')
-        address = st.text_area('Address')
+        mobile_number = st.text_input('Mobile Number', key='mobile_number')
+        email = st.text_input('E-Mail', key='email')
+        address = st.text_area('Address', key='address')
         st.text('MISSION AND PURPOSE')
         mission = st.selectbox('SELECT', ['Orphanage', 'HOME-LESS FOOD', 'CHILD-EDUCATION', 'STRAY-DOG', 'PLANTED-TREE'])
         st.text('BANK DETAILS')
-        account_holder = st.text_input('Holder Name')
-        bank_name = st.text_input('Bank Name')
-        account_number = st.text_input('A/C Number')
-        ifsc_code = st.text_input('IFSC Number')
+        account_holder = st.text_input('Holder Name', key='account_holder')
+        bank_name = st.text_input('Bank Name', key='bank_name')
+        account_number = st.text_input('A/C Number', key='account_number')
+        ifsc_code = st.text_input('IFSC Number', key='ifsc_code')
         submit_button = st.form_submit_button('Register')
 
-    # Submit button clicked
-    if submit_button:
+    # Check for empty fields and make them mandatory
+    if all(field != '' for field in [org_name, reg_number, mobile_number, email, address,
+                                       account_holder, bank_name, account_number, ifsc_code]):
         try:
             data = {
                 "name": org_name,
@@ -102,8 +100,8 @@ def app(global_state):
             st.success("Organization registration successful!")
         except Exception as e:
             st.error(f"Firebase error: {e}")
-        # email=st.session_state.usermail
-    
+    else:
+        st.error("Please fill in all required fields.")
 
 if __name__ == "__main__":
     app()
