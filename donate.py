@@ -111,7 +111,7 @@ def app(global_state):
             ,
         )
         print(session.url)
-        webbrowser.open(session.url)
+        #webbrowser.open(session.url)
         return session.url
 
                 #if type=='monthly':
@@ -157,7 +157,7 @@ def app(global_state):
           
 
 # if st.button('Donate'):
-    link = get_link
+    link = get_link()
     print('link',link)
     html_content = f"""
       <a href='{link}'>Donate</a>
