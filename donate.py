@@ -156,4 +156,5 @@ def app(global_state):
         is_active_subscriber('as@g.com')
           
 
-    st.button('Donate',on_click=get_link)
+    if st.button('Donate'):
+         webbrowser.open(get_link)
