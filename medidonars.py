@@ -1,6 +1,39 @@
 import streamlit as st
-from firebase_admin import firestore
+from firebase_admin import firestore, storage
 
+db = firestore.client()  # Initialize Firestore client
+
+def get_donors():
+    try:
+        print('\n running ')
+        folder_path = f'MediDonors/'
+        collection_ref = db.collection('MediDonors')
+
+        # Get all documents in the collection
+        docs = collection_ref.stream()
+
+        # Iterate over each document and print its data
+        donors_data = {}
+        for doc in docs:
+            donors_data[doc.id]=doc.to_dict()
+            # print(f'Document ID: {doc.id}, Data: {doc.to_dict()}')
+        return donors_data
+        
+        #
+        #  bucket = storage.bucket()
+        # blobs = list(bucket.list_blobs(prefix=folder_path))
+        # print(blobs)
+
+
+        # subfolders = set()
+        # for blob in reversed(blobs):
+        #     subfolder = blob.name[len(folder_path):].split('/')[0]
+        #     if subfolder and subfolder not in subfolders:
+        #         subfolders.add(subfolder)
+        #         subfolder_path = f"{folder_path}{subfolder}/"
+        #         blobs = bucket.list_blobs(prefix=subfolder_path)
+        #         print(blobs)
+    except:return None    
 def app(global_state):
 
     # App title and divider
@@ -71,6 +104,7 @@ def app(global_state):
                     db = firestore.client()
 
                     db.collection("Users").document(global_state.email).update({"MedicalDonations": donor_data})  # Add data to Firestore collection
+                    db.collection("MediDonors").document(global_state.email).set(donor_data)  # Add data to Firestore collection
 
                     registered_donors.append(donor_data)  # Add donor data to list
                     st.success('Thank you for registering as a donor!')
@@ -79,11 +113,13 @@ def app(global_state):
 
     # FIND DONORS section (display registered donors)
     elif selection == 'FIND DONORS':
+        registered_donors = get_donors()
+
         if registered_donors:  # Check if any donors are registered
             st.header('Registered Donors')
             for donor in registered_donors:  # Make sure this loop is indented within the if block
-                st.write(f"Name: {donor['name']}")
-                st.write(f"Donation Type: {donor['donation_type']}")
+                st.write(f"Name: {donor}")
+                st.write(f"Donation Data: {registered_donors[donor]}")
                 # Add more details as needed: st.write(f"...")
         else:
             st.info('No donors are registered yet.')  # Informative message if no donors
