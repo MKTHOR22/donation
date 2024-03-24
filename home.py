@@ -90,7 +90,7 @@ def app(global_state):
         webbrowser.open(url)
 
 
-    org_list = [{'Email':'abc','Name':'THAAGAM FOUNDATION','DEtails':'''We are orphanage children's helpers ..........\n Show your support !!!!- THAAGAM FOUNDATION '''},{'Email':'2a@g','Name':'DONATEinKIND','DEtails':'''2We are helpers For Hungry people ..........\n Show your support !!!!- DONATEinKIND'''},{'Email':'3a@g','Name':'NATIONAL ORGAN & TISSUE TRANSPLANT ORG','DEtails':'''3We are Orgon & Tissue Donars  ..........\n Show your support !!!!- NOTTO '''}]
+    org_list = [{'Email':'abc','Name':'THAAGAM FOUNDATION','DEtails':'''We are orphanage children's helpers ..........\n Show your support !!!!- THAAGAM FOUNDATION '''},{'Email':'2a@g','Name':'DONATEinKIND','DEtails':'''2We are helpers For Hungry people ..........\n Show your support !!!!- DONATEinKIND '''},{'Email':'3a@g','Name':'NATIONAL ORGAN & TISSUE TRANSPLANT ORG','DEtails':'''3We are Orgon & Tissue Donars  ..........\n Show your support !!!!- NOTTO '''}]
     total_orgs = len(org_list)
     i=0
     while i < total_orgs:
