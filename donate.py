@@ -156,5 +156,11 @@ def app(global_state):
         is_active_subscriber('as@g.com')
           
 
-    if st.button('Donate'):
-         webbrowser.open(get_link)
+# if st.button('Donate'):
+    link = get_link
+    print('link',link)
+    html_content = f"""
+      <a href='{link}'>Donate</a>
+     """
+    st.markdown(html_content, unsafe_allow_html=True)
+         #webbrowser.open(get_link)
